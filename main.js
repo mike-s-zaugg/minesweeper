@@ -74,7 +74,7 @@ function displayField(field) {
     }
 }
 
-countNeighborBombs(field, 4, 5);
+countNeighborBombs(field, 8, 8);
 
 function countNeighborBombs(field, row, col){
     let bombRadiusCount = 0;
@@ -83,13 +83,16 @@ function countNeighborBombs(field, row, col){
     for (let i = 0; i < 3;  i++) {
 
         for (let f = 0; f < 3; f++){
-            if(field[rowStartPoint][colStartPoint] !== field[row][col]){
-                if(field[rowStartPoint][colStartPoint].bomb){
-                    bombRadiusCount++;
-                } 
+            if(rowStartPoint >= 0 && rowStartPoint < ROWS && colStartPoint >= 0 && colStartPoint < COLS){
+                if(field[rowStartPoint][colStartPoint] !== field[row][col]){
+                    if(field[rowStartPoint][colStartPoint].bomb){
+                        bombRadiusCount++;
+                    } 
+                }
             }
             colStartPoint++;
         }
+        colStartPoint = col - 1;
 
         rowStartPoint++;
     }
