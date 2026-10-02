@@ -1,4 +1,3 @@
-console.log("Hallo Minesweeper!");
 const ROWS = 9;
 const COLS = 9;
 const MINES = 10;
@@ -61,11 +60,11 @@ function displayField(field) {
                 displayField(field);
             });
 
-			cellElement.addEventListener("contextmenu", function(event) {
-				event.preventDefault(event);
-				toggleFlag(field, row, col);
-				displayField(field);
-			});
+            cellElement.addEventListener("contextmenu", function (event) {
+                event.preventDefault(event);
+                toggleFlag(field, row, col);
+                displayField(field);
+            });
 
             if (field[row][col].state === "open") {
                 cellElement.classList.add("open");
@@ -80,11 +79,11 @@ function displayField(field) {
 
                     cellElement.classList.add(numberedClassName);
                 }
-            } 	else if (field[row][col].state === "hidden") {
+            } else if (field[row][col].state === "hidden") {
                 cellElement.classList.add("hidden");
-            }	else if (field[row][col].state === "flagged") {
-				cellElement.classList.add("flagged");
-			}
+            } else if (field[row][col].state === "flagged") {
+                cellElement.classList.add("flagged");
+            }
             rowElement.appendChild(cellElement);
         }
 
@@ -146,7 +145,7 @@ function openCell(field, row, col) {
     let rowStartPoint = row - 1;
     let colStartPoint = col - 1;
 
-    // open only when not already open
+    // open only when hidden
     if (field[row][col].state === "hidden") {
         field[row][col].state = "open";
 
@@ -180,11 +179,10 @@ function openCell(field, row, col) {
     return;
 }
 
-function toggleFlag(field, row, col){
-	if(field[row][col].state === "hidden"){
-		field[row][col].state = "flagged"
-
-	} else if(field[row][col].state === "flagged"){
-		field[row][col].state = "hidden"
-	}
+function toggleFlag(field, row, col) {
+    if (field[row][col].state === "hidden") {
+        field[row][col].state = "flagged";
+    } else if (field[row][col].state === "flagged") {
+        field[row][col].state = "hidden";
+    }
 }
