@@ -2,7 +2,6 @@ const ROWS = 9;
 const COLS = 9;
 const MINES = 10;
 
-
 let gameState = "running";
 
 const table = document.getElementById("board");
@@ -61,9 +60,9 @@ function displayField(field) {
 
             // Eventlistener -> unhide cells
             cellElement.addEventListener("click", function () {
-                if(gameState !== "running"){
+                if (gameState !== "running") {
                     return;
-                } 
+                }
                 openCell(field, row, col);
                 checkGameState(field);
                 displayField(field);
@@ -71,9 +70,9 @@ function displayField(field) {
 
             cellElement.addEventListener("contextmenu", function (event) {
                 event.preventDefault(event);
-                if(gameState !== "running"){
+                if (gameState !== "running") {
                     return;
-                } 
+                }
                 toggleFlag(field, row, col);
                 displayField(field);
             });
@@ -202,26 +201,30 @@ function checkGameState(field) {
         const colCount = field[row].length;
 
         for (let col = 0; col < colCount; col++) {
-            
-            if (field[row][col].bomb === true && field[row][col].state === "open") {
+            if (
+                field[row][col].bomb === true &&
+                field[row][col].state === "open"
+            ) {
                 openedBombs++;
-            } else if (field[row][col].bomb === false && field[row][col].state !== "open"){
-                unopenedSafeFields++
+            } else if (
+                field[row][col].bomb === false &&
+                field[row][col].state !== "open"
+            ) {
+                unopenedSafeFields++;
             }
         }
     }
 
-    if(openedBombs > 0){
+    if (openedBombs > 0) {
         // game lost
         revealAllCells(field);
         gameState = "lost";
         gameStateDisplay.textContent = "You Lost!";
-    } else if (openedBombs === 0 && unopenedSafeFields === 0){
+    } else if (openedBombs === 0 && unopenedSafeFields === 0) {
         // game won
         gameState = "won";
         gameStateDisplay.textContent = "You Won!";
     }
-
 }
 
 function revealAllCells(field) {
@@ -234,7 +237,7 @@ function revealAllCells(field) {
     }
 }
 
-function newGame(){
+function newGame() {
     const field = createField();
     placeMines(field);
     calculateNumbers(field);
