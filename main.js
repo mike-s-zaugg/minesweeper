@@ -2,7 +2,12 @@ const ROWS = 9;
 const COLS = 9;
 const MINES = 10;
 
+
+let gameState = "running";
+
 const table = document.getElementById("board");
+const gameStateDisplay = document.getElementById("gameState");
+const restartButton = document.getElementById("restartButton");
 
 function returnNewCellObject() {
     const newCell = { bomb: false, bombsInRadius: 0, state: "hidden" };
@@ -56,12 +61,19 @@ function displayField(field) {
 
             // Eventlistener -> unhide cells
             cellElement.addEventListener("click", function () {
+                if(gameState !== "running"){
+                    return;
+                } 
                 openCell(field, row, col);
+                checkGameState(field);
                 displayField(field);
             });
 
             cellElement.addEventListener("contextmenu", function (event) {
                 event.preventDefault(event);
+                if(gameState !== "running"){
+                    return;
+                } 
                 toggleFlag(field, row, col);
                 displayField(field);
             });
@@ -136,11 +148,6 @@ function calculateNumbers(field, row, col) {
     }
 }
 
-const field = createField();
-placeMines(field);
-calculateNumbers(field);
-displayField(field);
-
 function openCell(field, row, col) {
     let rowStartPoint = row - 1;
     let colStartPoint = col - 1;
@@ -186,3 +193,58 @@ function toggleFlag(field, row, col) {
         field[row][col].state = "hidden";
     }
 }
+
+function checkGameState(field) {
+    let openedBombs = 0;
+    let unopenedSafeFields = 0;
+
+    for (let row = 0; row < field.length; row++) {
+        const colCount = field[row].length;
+
+        for (let col = 0; col < colCount; col++) {
+            
+            if (field[row][col].bomb === true && field[row][col].state === "open") {
+                openedBombs++;
+            } else if (field[row][col].bomb === false && field[row][col].state !== "open"){
+                unopenedSafeFields++
+            }
+        }
+    }
+
+    if(openedBombs > 0){
+        // game lost
+        revealAllCells(field);
+        gameState = "lost";
+        gameStateDisplay.textContent = "You Lost!";
+    } else if (openedBombs === 0 && unopenedSafeFields === 0){
+        // game won
+        gameState = "won";
+        gameStateDisplay.textContent = "You Won!";
+    }
+
+}
+
+function revealAllCells(field) {
+    for (let row = 0; row < field.length; row++) {
+        const colCount = field[row].length;
+
+        for (let col = 0; col < colCount; col++) {
+            field[row][col].state = "open";
+        }
+    }
+}
+
+function newGame(){
+    const field = createField();
+    placeMines(field);
+    calculateNumbers(field);
+    gameState = "running";
+    gameStateDisplay.textContent = "";
+    displayField(field);
+}
+
+newGame();
+
+restartButton.addEventListener("click", function () {
+    newGame();
+});
