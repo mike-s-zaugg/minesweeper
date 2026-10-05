@@ -11,15 +11,15 @@ See the progress here:
 
 First POC:
 <br>
-<img src="documentation/screenshots/screenshot_32.jpg" alt="Minesweeper Gameplay POC" width="400">
+<img src="documentation/screenshots/Screenshot_32.jpg" alt="Minesweeper Gameplay POC" width="400">
 
 First css and more logic:
 <br>
-<img src="documentation/screenshots/screenshot_33.jpg" alt="Minesweeper Gameplay first styling and logic" width="400">
+<img src="documentation/screenshots/Screenshot_33.jpg" alt="Minesweeper Gameplay first styling and logic" width="400">
 
 Final form:
 <br>
-<img src="documentation/screenshots/screenshot_34.jpg" alt="Minesweeper Gameplay Final Version" width="400">
+<img src="documentation/screenshots/Screenshot_34.jpg" alt="Minesweeper Gameplay Final Version" width="400">
 
 
 
